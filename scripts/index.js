@@ -8,33 +8,33 @@
 
 // @todo: Вывести карточки на страницу
 
-const cardReciever = (name, link) => {
-  let card = document.querySelector("#card-template");
-  let cloned = card.content.cloneNode(true);
+const createCard = (name, link) => {
+  const card = document.querySelector("#card-template");
+  const cloned = card.content.querySelector(".card").cloneNode(true);
 
-  let image = cloned.querySelector("img");
-  let title = cloned.querySelector(".card__title");
+  const image = cloned.querySelector("img");
+  const title = cloned.querySelector(".card__title");
 
   image.src = link;
   image.alt = name;
   title.textContent = name;
 
-  const deleteButton = cloned.querySelector('.card__delete-button');
-  deleteButton.addEventListener('click', () =>{
-    let cardElement = deleteButton.closest('.card');
-    cardElement.remove();
-  })
+  const deleteButton = cloned.querySelector(".card__delete-button");
+  deleteButton.addEventListener("click", () => {
+    deleteCard(cloned);
+  });
 
   return cloned;
 };
 
-function deleteCard(cardElement){
-cardElement.remove()
-}
+const deleteCard = (cardElement) => {
+  cardElement.remove();
+};
 
-let cardContainer = document.querySelector('.places__list');
+const cardContainer = document.querySelector(".places__list");
 
-initialCards.forEach((item) =>{
-    const cardElement = cardReciever(item.name, item.link);
-    cardContainer.append(cardElement);
-})
+initialCards.forEach((item) => {
+  const cardElement = createCard(item.name, item.link);
+  cardContainer.append(cardElement);
+});
+
