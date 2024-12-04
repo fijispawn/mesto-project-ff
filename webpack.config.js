@@ -9,12 +9,14 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
+
   mode: "development",
   devServer: {
     static: "./dist",
     hot: true,
     open: true,
   },
+
   module: {
     rules: [
       {
@@ -27,10 +29,12 @@ module.exports = {
           },
         },
       },
+
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
+
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/i,
         type: "asset/resource",
@@ -38,16 +42,19 @@ module.exports = {
           filename: "images/[name][ext]",
         },
       },
+
       {
         test: /\.html$/,
         use: ["html-loader"],
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html",
     }),
+
     new MiniCssExtractPlugin({
       filename: "styles/[name].css",
     }),

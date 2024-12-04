@@ -1,10 +1,6 @@
-import { openModal } from "./modal.js";
-
-export function createCard(name, link) {
+export function createCard(name, link, handleImageClick) {
   const cardTemplate = document.querySelector("#card-template");
-  const cardElement = cardTemplate.content
-    .querySelector(".card")
-    .cloneNode(true);
+  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
 
   const image = cardElement.querySelector(".card__image");
   const title = cardElement.querySelector(".card__title");
@@ -24,15 +20,7 @@ export function createCard(name, link) {
   });
 
   image.addEventListener("click", () => {
-    const imageModal = document.querySelector(".popup_type_image");
-    const popupImage = imageModal.querySelector(".popup__image");
-    const popupCaption = imageModal.querySelector(".popup__caption");
-
-    popupImage.src = link;
-    popupImage.alt = name;
-    popupCaption.textContent = name;
-
-    openModal(imageModal);
+    handleImageClick(name, link);
   });
 
   return cardElement;
