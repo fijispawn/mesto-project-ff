@@ -61,6 +61,10 @@ addCardForm.addEventListener("submit", (evt) => {
   const placeLink = addCardForm.elements.link.value;
   const newCard = createCard(placeName, placeLink, handleImageClick);
   cardContainer.prepend(newCard);
+
+  addCardForm.elements["place-name"].value = "";
+  addCardForm.elements.link.value = "";
+
   closeModal(addCardModal);
 });
 
