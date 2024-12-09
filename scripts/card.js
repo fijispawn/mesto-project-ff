@@ -11,7 +11,9 @@ export function createCard(
   openDeletePopup
 ) {
   const cardTemplate = document.querySelector("#card-template");
-  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
 
   const image = cardElement.querySelector(".card__image");
   const title = cardElement.querySelector(".card__title");
@@ -24,31 +26,36 @@ export function createCard(
   title.textContent = name;
   likeCount.textContent = likes.length;
 
-  // Отображение кнопки удаления только для карточек текущего пользователя
+  if (likes.some((like) => like._id === currentUserId)) {
+    likeButton.classList.add("card__like-button_is-active");
+  }
+
   if (ownerId !== currentUserId) {
     deleteButton.remove();
   } else {
     deleteButton.addEventListener("click", () => {
-      openDeletePopup(cardId, cardElement); // Открываем попап удаления
+      openDeletePopup(cardId, cardElement);
     });
   }
 
-  // Лайки
   likeButton.addEventListener("click", () => {
     if (likeButton.classList.contains("card__like-button_is-active")) {
-      unlikeCard(cardId).then((updatedCard) => {
-        likeCount.textContent = updatedCard.likes.length;
-        likeButton.classList.remove("card__like-button_is-active");
-      });
+      unlikeCard(cardId)
+        .then((updatedCard) => {
+          likeCount.textContent = updatedCard.likes.length;
+          likeButton.classList.remove("card__like-button_is-active");
+        })
+        .catch((err) => console.error(`Ошибка снятия лайка: ${err}`));
     } else {
-      likeCard(cardId).then((updatedCard) => {
-        likeCount.textContent = updatedCard.likes.length;
-        likeButton.classList.add("card__like-button_is-active");
-      });
+      likeCard(cardId)
+        .then((updatedCard) => {
+          likeCount.textContent = updatedCard.likes.length;
+          likeButton.classList.add("card__like-button_is-active");
+        })
+        .catch((err) => console.error(`Ошибка установки лайка: ${err}`));
     }
   });
 
-  // Открытие попапа изображения
   image.addEventListener("click", () => {
     handleImageClick(name, link);
   });
