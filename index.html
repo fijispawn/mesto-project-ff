@@ -20,10 +20,10 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <div
-            class="profile__image"
-            style="background-image: url('./images/avatar.jpg')"
-          ></div>
+          <div class="profile__image" style="background-image: url('./images/avatar.jpg')" role="button" aria-label="Редактировать аватар">
+            <span class="profile__image-edit"></span>
+          </div>
+          
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -38,11 +38,12 @@
       <footer class="footer page__section">
         <p class="footer__copyright">© 2021 Mesto Russia</p>
       </footer>
+
       <div class="popup popup_type_edit">
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form" name="edit-profile">
+          <form class="popup__form" name="edit-profile" novalidate>
             <input
               type="text"
               name="name"
@@ -50,6 +51,7 @@
               placeholder="Имя"
               required
             />
+            <span class="name-error popup__error"></span>
             <input
               type="text"
               name="description"
@@ -57,17 +59,23 @@
               placeholder="Занятие"
               required
             />
-            <button type="submit" class="button popup__button">
+            <span class="description-error popup__error"></span>
+            <button
+              type="submit"
+              class="button popup__button popup__button_disabled"
+              disabled
+            >
               Сохранить
             </button>
           </form>
         </div>
       </div>
+
       <div class="popup popup_type_new-card">
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Новое место</h3>
-          <form class="popup__form" name="new-place">
+          <form class="popup__form" name="new-place" novalidate>
             <input
               type="text"
               name="place-name"
@@ -75,6 +83,7 @@
               placeholder="Название"
               required
             />
+            <span class="place-name-error popup__error"></span>
             <input
               type="url"
               name="link"
@@ -82,12 +91,42 @@
               placeholder="Ссылка на картинку"
               required
             />
-            <button type="submit" class="button popup__button">
+            <span class="link-error popup__error"></span>
+            <button
+              type="submit"
+              class="button popup__button popup__button_disabled"
+              disabled
+            >
               Сохранить
             </button>
           </form>
         </div>
       </div>
+
+      <div class="popup popup_type_avatar">
+        <div class="popup__content">
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form class="popup__form" name="update-avatar" novalidate>
+            <input
+              type="url"
+              name="avatar"
+              class="popup__input popup__input_type_avatar"
+              placeholder="Ссылка на аватар"
+              required
+            />
+            <span class="avatar-error popup__error"></span>
+            <button
+              type="submit"
+              class="button popup__button popup__button_disabled"
+              disabled
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
+
       <div class="popup popup_type_image">
         <div class="popup__content popup__content_content_image">
           <button type="button" class="popup__close"></button>
@@ -95,16 +134,28 @@
           <p class="popup__caption"></p>
         </div>
       </div>
-    </div>
-    <template id="card-template">
-      <li class="places__item card">
-        <img class="card__image" src="images/placeholder.svg" alt="" />
-        <button type="button" class="card__delete-button"></button>
-        <div class="card__description">
-          <h2 class="card__title"></h2>
-          <button type="button" class="card__like-button"></button>
+
+      <div class="popup popup_type_delete">
+        <div class="popup__content">
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Вы уверены?</h3>
+          <button type="button" class="button popup__button">Да</button>
         </div>
-      </li>
-    </template>
+      </div>
+
+      <template id="card-template">
+        <li class="places__item card">
+          <img class="card__image" src="images/placeholder.svg" alt="" />
+          <button type="button" class="card__delete-button"></button>
+          <div class="card__description">
+            <h2 class="card__title"></h2>
+            <div class="card__like-container">
+              <button type="button" class="card__like-button"></button>
+              <span class="card__like-count">0</span>
+            </div>
+          </div>
+        </li>
+      </template>
+    </div>
   </body>
 </html>
